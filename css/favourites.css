@@ -48,6 +48,7 @@ body {
   cursor: pointer;
 }
 
+
 /* Optional: Center the favorite hero cards */
 #favoritesList {
   text-align: left;
@@ -55,6 +56,9 @@ body {
   margin-left: 2rem;
 }
 
+
+
+/* Style for Notification on super hero removing from favorite list */
 #notification {
   position: fixed;
   top: 5rem;

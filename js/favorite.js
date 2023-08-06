@@ -1,11 +1,16 @@
+// Initialize
 const favoritesList = document.getElementById('favoritesList');
 
+// fetch details of superhero using id
 async function fetchSuperheroDetails(superheroId) {
     const response = await fetch(`${baseURL}/${superheroId}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
     const data = await response.json();
     return data.data.results[0];
 }
 
+
+
+// function for displaying favorite superheros
 function displayFavoriteSuperheroes(favoriteSuperheroes) {
     favoritesList.innerHTML = '';
     favoriteSuperheroes.forEach(async superheroId => {
@@ -17,11 +22,16 @@ function displayFavoriteSuperheroes(favoriteSuperheroes) {
         <h3>${superhero.name}</h3>
         <button class="remove-favorite" data-id="${superhero.id}">Remove from Favorites</button>
       `;
-        favoriteCard.querySelector('.remove-favorite').addEventListener('click', removeFromFavorites);
+        favoriteCard.querySelector('.remove-favorite').addEventListener('click', function(event){
+            removeFromFavorites(event);
+            event.stopImmediatePropagation();
+        });
         favoriteCard.addEventListener('click', () => openSuperheroPage(superhero.id));
         favoritesList.appendChild(favoriteCard);
     });
 }
+
+
 
 // logic for fetching favorite heros from LocalStorage
 function getFavoriteSuperheroes() {

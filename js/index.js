@@ -1,3 +1,4 @@
+// initialize
 const publicKey = '0887df96aa8f8d8fd6fd8d4adf2ab5a3'; // Marvel API public key
 const privateKey = '35201a2e103827cc9797fe049d3091454a20a1ad'; // Marvel API private key
 const baseURL = 'https://gateway.marvel.com:443/v1/public/characters';
@@ -7,7 +8,7 @@ const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
 const superheroDetailsContainer = document.getElementById('superheroDetails');
 const searchInput = document.getElementById('searchBar');
 
-if (searchInput !== undefined || searchInput !== null){
+if (searchInput !== undefined || searchInput !== null) {
   searchInput.addEventListener('input', debounce(searchSuperheroes, 500));
 }
 
@@ -65,11 +66,17 @@ function displaySuperheroes(superheroes) {
       <h3>${superhero.name}</h3>
       <button class="add-favorite" data-id="${superhero.id}">Add to Favorites</button>
     `;
-    heroCard.querySelector('.add-favorite').addEventListener('click', addToFavorites);
-    heroCard.addEventListener('click', () => openSuperheroPage(superhero.id));
+    heroCard.querySelector('.add-favorite').addEventListener('click', function (event) {
+      addToFavorites(event);
+      event.stopPropagation();
+    });
+    heroCard.addEventListener('click', function (event) {
+      openSuperheroPage(superhero.id);
+    })
     superheroesList.appendChild(heroCard);
   });
 }
+
 
 // function for displaying superhero lists
 async function fetchAndDisplayAllCharacters() {
